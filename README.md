@@ -1,4 +1,4 @@
-This is a package aimed at converting .agd files from Actigraph in data.frames.
+This is a package aimed at converting .agd files from Actigraph into data.frames.
 
 Installation
 ============
