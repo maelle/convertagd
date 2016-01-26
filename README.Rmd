@@ -1,0 +1,17 @@
+---
+title: "README of R package convertagd"
+author: "Maëlle Salmon and other CHAI project members"
+date: "`r Sys.Date()`"
+output:
+  md_document:
+    variant: markdown_github
+---
+
+This is a package aimed at converting .agd files from Actigraph in data.frames. 
+
+# Installation
+
+```{r, eval=FALSE}
+library("devtools")
+install_github("masalmon/convertagd")
+```
