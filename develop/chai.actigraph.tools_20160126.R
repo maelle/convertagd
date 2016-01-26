@@ -151,10 +151,10 @@ acti4
 
 #anado wearing & METs al raw.data
 acti <- merge(acti,acti4[c("date","wearing")],by.x="date2",by.y="date",all.x=T)
-              
-png(sub("agd","png",x),width = 800, height = 600)
-plot(acti4$date,acti4$mets.acti,type="l",xlab="Date",ylab="Intensity (METs)")
-dev.off()
+
+# png(sub("agd","png",x),width = 800, height = 600)
+# plot(acti4$date,acti4$mets.acti,type="l",xlab="Date",ylab="Intensity (METs)")
+# dev.off()
 
 WEARING <-as.data.frame(unclass(round(table(acti4$worn,acti4$day)/60,2)))
 PA <-as.data.frame(unclass(round(table(acti4$time.pa,acti4$day)/60,2)))

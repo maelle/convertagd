@@ -4,9 +4,12 @@ Title: Read agd Files From Actigraph
 Version: 0.1
 Date: 2016-01-26
 Author: D. Donaire and M. Salmon
-Maintainer: maelle.salmon@yahoo.se
-Description: Allows to read Actigraph .agd files without having the dedicated software
+Maintainer: <maelle.salmon@yahoo.se>
+Description: Allows to read Actigraph .agd files without having the dedicated
+    software
 License: GPL (version 2 or later)
 LazyData: TRUE
 URL: http://github.com/masalmon/convertagd
 BugReports: http://github.com/masalmon/convertagd/issues
+RoxygenNote: 5.0.1
+Suggests: testthat
