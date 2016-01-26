@@ -9,9 +9,26 @@ output:
 
 This is a package aimed at converting .agd files from Actigraph into data.frames. 
 
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+library("knitr")
+```
+
 # Installation
 
 ```{r, eval=FALSE}
 library("devtools")
 install_github("masalmon/convertagd")
 ```
+
+# Example
+
+For now there is only a function for reading a agd file and getting two tables out of it.
+
+```{r, results='asis'}
+library("convertagd")
+file <- system.file("extdata", "dummyCHAI.agd", package = "convertagd")
+testRes <- read_agd(file, tz = "GMT")
+kable(testRes[["settings"]])
+kable(head(testRes[["raw.data"]]))
+```
+
