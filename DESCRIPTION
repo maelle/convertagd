@@ -1,10 +1,12 @@
 Package: convertagd
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Read agd Files From Actigraph
 Version: 0.1
 Date: 2016-01-26
-Author: Who wrote it
-Maintainer: Who to complain to <yourfault@somewhere.net>
-Description: More about what it does (maybe more than one line)
-License: What license is it under?
+Author: D. Donaire and M. Salmon
+Maintainer: maelle.salmon@yahoo.se
+Description: Allows to read Actigraph .agd files without having the dedicated software
+License: GPL (version 2 or later)
 LazyData: TRUE
+URL: http://github.com/masalmon/convertagd
+BugReports: http://github.com/masalmon/convertagd/issues
