@@ -16,9 +16,8 @@ suppressWarnings(suppressMessages(if (!require(PhysicalActivity)){
 	require(PhysicalActivity)}))
 
 if(length(x)==1){
-drv <- dbDriver("SQLite")
-con <- dbConnect(drv, x)
-ad.set <- dbReadTable(con,"settings")
+  con <- DBI::dbConnect(RSQLite::SQLite(), x)
+  ad.set <- DBI::dbReadTable(con, "settings")
 ad.set <<- ad.set
 origen<- as.POSIXct(as.character(as.POSIXlt((as.numeric(
   ad.set[grep("startdatetime",ad.set[,2]),3])/1e7),
