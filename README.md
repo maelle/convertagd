@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/masalmon/convertagd.svg?branch=master)](https://travis-ci.org/masalmon/convertagd) [![Build status](https://ci.appveyor.com/api/projects/status/8doh6j4dc9esj5as?svg=true)](https://ci.appveyor.com/project/masalmon/convertagd)
+
 This is a package aimed at converting .agd files from Actigraph into data.frames.
 
 Installation
