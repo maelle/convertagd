@@ -71,22 +71,22 @@ Suppose you have a lot of agd files in one directory. You can convert all of the
 
 It takes the path to the directory as input and will save the results in the current working directory.
 
-You can either choose to get two csv files for each agd files :
+You can either choose to get two csv files for each agd files (`all_in_one = FALSE`) :
 
 -   originalfilename\_settings.csv
 
 -   originalfilename\_raw.csv
 
-Or to get two csv files for all agd files :
+Or to get two csv files for all agd files (`all_in_one = TRUE`) :
 
 -   settings.csv which is a table with 28 columns (the 28 settings names) and as many rows as there are agd files in the directory.
 
--   raw\_data.csv which is a table with all measurements for all files, with a column "fileName" for identifying the individual sets of measurements.
+-   raw\_data.csv which is a table with all measurements for all files, with a column "file\_name" for identifying the individual sets of measurements.
 
 This is how a call to the function looks like:
 
 ``` r
-pathToDirectory <- system.file("extdata", package = "convertagd")
-batch_read_agd(pathToDirectory, tz="GMT",
-                allInOne=TRUE)
+path_to_directory <- system.file("extdata", package = "convertagd")
+batch_read_agd(path_to_directory, tz="GMT",
+                all_in_one=TRUE)
 ```
