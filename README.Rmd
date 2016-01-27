@@ -20,9 +20,9 @@ library("devtools")
 install_github("masalmon/convertagd")
 ```
 
-# Example
+# Converting a single file
 
-For now there is only a function for reading a agd file and getting two tables out of it.
+`read_agd` is the function for reading a agd file and getting two tables out of it.
 
 ```{r, results='asis'}
 library("convertagd")
@@ -32,3 +32,29 @@ kable(testRes[["settings"]])
 kable(head(testRes[["raw.data"]]))
 ```
 
+# Converting all files in a directory
+
+Suppose you have a lot of agd files in one directory. You can convert all of them at the same time, outside of memory, using the `batch_read_agd` function.
+
+It takes the path to the directory as input and will save the results in the current working directory.
+
+You can either choose to get two csv files for each agd files :
+
+* originalfilename_settings.csv
+
+* originalfilename_raw.csv
+
+Or to get two csv files for all agd files :
+
+* settings.csv which is a table with 28 columns (the 28 settings names) and as many rows as there are agd files in the directory.
+
+* raw_data.csv which is a table with all measurements for all files, with a column "fileName" for identifying the individual sets of measurements.
+
+This is how a call to the function looks like:
+
+```{r, eval=FALSE}
+pathToDirectory <- system.file("extdata", package = "convertagd")
+batch_read_agd(pathToDirectory, tz="GMT",
+                allInOne=TRUE)
+
+```
