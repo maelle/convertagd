@@ -24,7 +24,7 @@ install_github("masalmon/convertagd")
 
 `read_agd` is the function for reading a agd file and getting two tables out of it.
 
-```{r, results='asis'}
+```{r, results='asis', warning=FALSE, message=FALSE}
 library("convertagd")
 file <- system.file("extdata", "dummyCHAI.agd", package = "convertagd")
 testRes <- read_agd(file, tz = "GMT")

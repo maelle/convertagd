@@ -15,34 +15,6 @@ Converting a single file
 
 ``` r
 library("convertagd")
-```
-
-    ## Loading required package: DBI
-
-    ## Loading required package: PhysicalActivity
-
-    ## Warning: package 'PhysicalActivity' was built under R version 3.2.3
-
-    ## Loading required package: RSQLite
-
-    ## Loading required package: dplyr
-
-    ## 
-    ## Attaching package: 'dplyr'
-
-    ## The following objects are masked from 'package:stats':
-    ## 
-    ##     filter, lag
-
-    ## The following objects are masked from 'package:base':
-    ## 
-    ##     intersect, setdiff, setequal, union
-
-    ## Loading required package: lubridate
-
-    ## Loading required package: readr
-
-``` r
 file <- system.file("extdata", "dummyCHAI.agd", package = "convertagd")
 testRes <- read_agd(file, tz = "GMT")
 kable(testRes[["settings"]])
