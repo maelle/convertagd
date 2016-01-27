@@ -19,17 +19,17 @@
 read_agd <- function(file, tz = "GMT"){
   # Connect to database and fetch the settings table
   con <- DBI::dbConnect(RSQLite::SQLite(), file)
-  ad_set <- DBI::dbReadTable(con,"settings")
+  ad_set <- DBI::dbReadTable(con, "settings")
   ad_set <<- ad_set
   # find start date
   raw_start <- ad_set$"settingValue"[ad_set$"settingName" ==
                                        "startdatetime"]
   # first convert to POSIXlt
-  origen <- as.POSIXlt((as.numeric(raw_start) / 1e7),
+  origen <- as.POSIXlt( (as.numeric(raw_start) / 1e7),
                        origin = "0001-01-01 00:00:00",
                        tz = "GMT")
   # then change to write timezone
-  origen <- as.POSIXct(as.character(origen),tz = tz)
+  origen <- as.POSIXct(as.character(origen), tz = tz)
 
   # find length
   longitud <- ad_set$"settingValue"[ad_set$"settingName" ==
