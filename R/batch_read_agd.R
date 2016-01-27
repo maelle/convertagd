@@ -51,20 +51,20 @@ batch_read_agd <- function(path_to_directory, tz,
                     "notes" )
 
 
-  if(all_in_one == TRUE){
+  if (all_in_one == TRUE){
     # check files do not exist
-    if(file.exists("settings.csv") |
+    if (file.exists("settings.csv") |
        file.exists("raw_data.csv")){
       stop("There are already a settings.csv and/or a raw_data.csv in your working directory !")# nolint
     }
 
     # loop over files
     for (file in list_files){
-      converted <- read_agd(file, tz=tz)
+      converted <- read_agd(file, tz = tz)
       settings <- as.data.frame(t(converted[[1]]$"settingValue"))
       colnames(settings) <- settings_names
       # first line of the settings file
-      if(!file.exists("settings.csv")){
+      if (!file.exists("settings.csv")){
         readr::write_csv(settings,
                          path = "settings.csv",
                          append = FALSE)
@@ -81,14 +81,14 @@ batch_read_agd <- function(path_to_directory, tz,
       file_name <- gsub(".agd", "", file_name)
       raw <- converted[[2]]
       raw <- dplyr::mutate(raw,
-                   file_name=file_name)
+                   file_name = file_name)
       readr::write_csv(raw, path = "raw_data.csv",
                        append = TRUE)
 
     }
   }
 
-  if(all_in_one == FALSE){
+  if (all_in_one == FALSE){
     # loop over files
     for (file in list_files){
       # file_name
@@ -99,7 +99,7 @@ batch_read_agd <- function(path_to_directory, tz,
       # check files do not exist
       setting_name <- paste0(file_name, "_settings.csv")
       raw_name <- paste0(file_name, "_raw.csv")
-      if(file.exists(setting_name) |
+      if (file.exists(setting_name) |
          file.exists(raw_name)){
         stop(paste0("There are already a",
                     setting_name,
@@ -108,7 +108,7 @@ batch_read_agd <- function(path_to_directory, tz,
                     " in your working directory !"))
       }
       # save the two files
-      converted <- read_agd(file, tz=tz)
+      converted <- read_agd(file, tz = tz)
       settings <- as.data.frame(t(converted[[1]]$"settingValue"))
       colnames(settings) <- settings_names
        readr::write_csv(settings,

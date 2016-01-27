@@ -26,7 +26,8 @@ read_agd <- function(file, tz = "GMT"){
                                        "startdatetime"]
   # first convert to POSIXlt
   origen <- as.POSIXlt((as.numeric(raw_start) / 1e7),
-                       origin="0001-01-01 00:00:00", tz ="GMT")
+                       origin = "0001-01-01 00:00:00",
+                       tz = "GMT")
   # then change to write timezone
   origen <- as.POSIXct(as.character(origen),tz = tz)
 
@@ -38,14 +39,15 @@ read_agd <- function(file, tz = "GMT"){
   base <- DBI::dbReadTable(con, "data")
   base <- dplyr::tbl_df(base)
   base <- dplyr::mutate(base,
-                        date = origen + seq(from=0,by=10,
-                        length.out=longitud))
+                        date = origen +
+                          seq(from = 0, by = 10,
+                        length.out = longitud))
   base <- dplyr::select(base, date,
                         everything(),
                         - dataTimestamp) # nolint
 
   ad_set <- dplyr::tbl_df(ad_set)
-  res <- list(settings=ad_set,
-              raw.data=base)
+  res <- list(settings = ad_set,
+              raw.data = base)
   return(res)
 }
