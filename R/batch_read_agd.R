@@ -2,38 +2,39 @@
 #'
 #' @importFrom readr write_csv
 #' @importFrom dplyr mutate
-#' @param pathToDirectory path to the directory where all agd are saved.
+#' @param path_to_directory path to the directory where all agd are saved.
 #' @param tz Timezone. It must be the same for all files
-#' @param allInOne Boolean indicating whether the output should be a list of list of two tables
+#' @param all_in_one Boolean indicating whether the output should be a list of list of two tables
 #' (settings and raw data)
-#'  or a list of two tables (settings and raw data for all files with a column filename)
+#'  or a list of two tables (settings and raw data for all files with a column file_name)
 #'
 #' @examples
 #' \dontrun{
-#' pathToDirectory <- system.file("extdata", package = "convertagd")
-#' batch_read_agd(pathToDirectory, tz="GMT",
-#'                allInOne=TRUE)
+#' path_to_directory <- system.file("extdata", package = "convertagd")
+#' batch_read_agd(path_to_directory, tz="GMT",
+#'                all_in_one=TRUE)
 #'                }
 #' @details
 #' The function saves results in the working directory as csv files with a "," as separator.
-#' If allInOne=TRUE, the output tables
+#' If all_in_one=TRUE, the output tables
 #'  in this case will be called settings.csv and raw_data.csv. Else there will be a settings
-#'  and a raw data file (originalfilename_settings.csv and originalfilename_raw.csv) for each
+#'  and a raw data file (originalfile_name_settings.csv and originalfile_name_raw.csv) for each
 #'   file.
 #' @return
 #' @export
 #'
 #' @examples
-batch_read_agd <- function(pathToDirectory, tz,
-                           allInOne){
+batch_read_agd <- function(path_to_directory, tz,
+                           all_in_one){
   # find files to transform
-  listFiles <- list.files(pathToDirectory,
+  list_files <- list.files(path_to_directory,
                           full.names = TRUE)
-  listFiles <- listFiles[grepl(".agd", listFiles)==TRUE]
+  list_files <- list_files[grepl(".agd",
+                                 list_files) == TRUE]
 
 
   # names of the settings
-  settingsName <- c("softwarename", "softwareversion",
+  settings_names <- c("softwarename", "softwareversion",
                     "osversion", "machinename",
                     "datetimeformat", "decimal",
                     "grouping", "culturename",
@@ -50,18 +51,18 @@ batch_read_agd <- function(pathToDirectory, tz,
                     "notes" )
 
 
-  if(allInOne == TRUE){
+  if(all_in_one == TRUE){
     # check files do not exist
     if(file.exists("settings.csv") |
        file.exists("raw_data.csv")){
-      stop("There are already a settings.csv and/or a raw_data.csv in your working directory !")
+      stop("There are already a settings.csv and/or a raw_data.csv in your working directory !")# nolint
     }
 
     # loop over files
-    for(file in listFiles){
+    for (file in list_files){
       converted <- read_agd(file, tz=tz)
-      settings <- as.data.frame(t(converted[[1]]$settingValue))
-      colnames(settings) <- settingsName
+      settings <- as.data.frame(t(converted[[1]]$"settingValue"))
+      colnames(settings) <- settings_names
       # first line of the settings file
       if(!file.exists("settings.csv")){
         readr::write_csv(settings,
@@ -74,48 +75,48 @@ batch_read_agd <- function(pathToDirectory, tz,
                          append = TRUE)
       }
 
-      # The raw data file should include a fileName column
-      fileName <- gsub(pathToDirectory, "", file)
-      fileName <- gsub("/", "", fileName)
-      fileName <- gsub(".agd", "", fileName)
+      # The raw data file should include a file_name column
+      file_name <- gsub(path_to_directory, "", file)
+      file_name <- gsub("/", "", file_name)
+      file_name <- gsub(".agd", "", file_name)
       raw <- converted[[2]]
       raw <- dplyr::mutate(raw,
-                   fileName=fileName)
+                   file_name=file_name)
       readr::write_csv(raw, path = "raw_data.csv",
                        append = TRUE)
 
     }
   }
 
-  if(allInOne == FALSE){
+  if(all_in_one == FALSE){
     # loop over files
-    for(file in listFiles){
-      # filename
-      fileName <- gsub(pathToDirectory, "", file)
-      fileName <- gsub("/", "", fileName)
-      fileName <- gsub(".agd", "", fileName)
+    for (file in list_files){
+      # file_name
+      file_name <- gsub(path_to_directory, "", file)
+      file_name <- gsub("/", "", file_name)
+      file_name <- gsub(".agd", "", file_name)
 
       # check files do not exist
-      settingName <- paste0(fileName, "_settings.csv")
-      rawName <- paste0(fileName, "_raw.csv")
-      if(file.exists(settingName) |
-         file.exists(rawName)){
+      setting_name <- paste0(file_name, "_settings.csv")
+      raw_name <- paste0(file_name, "_raw.csv")
+      if(file.exists(setting_name) |
+         file.exists(raw_name)){
         stop(paste0("There are already a",
-                    settingName,
+                    setting_name,
                     " and/or a",
-                    rawName,
+                    raw_name,
                     " in your working directory !"))
       }
       # save the two files
       converted <- read_agd(file, tz=tz)
-      settings <- as.data.frame(t(testRes[[1]]$settingValue))
-      colnames(settings) <- settingsName
+      settings <- as.data.frame(t(converted[[1]]$"settingValue"))
+      colnames(settings) <- settings_names
        readr::write_csv(settings,
-                         path = settingName,
+                         path = setting_name,
                          append = FALSE)
 
       raw <- converted[[2]]
-      readr::write_csv(raw, path = rawName,
+      readr::write_csv(raw, path = raw_name,
                        append = FALSE)
 
     }

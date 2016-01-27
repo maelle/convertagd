@@ -19,18 +19,20 @@
 read_agd <- function(file, tz = "GMT"){
   # Connect to database and fetch the settings table
   con <- DBI::dbConnect(RSQLite::SQLite(), file)
-  ad.set <- DBI::dbReadTable(con,"settings")
-  ad.set <<- ad.set
+  ad_set <- DBI::dbReadTable(con,"settings")
+  ad_set <<- ad_set
   # find start date
-  rawStart <- ad.set$settingValue[ad.set$settingName=="startdatetime"]
+  raw_start <- ad_set$"settingValue"[ad_set$"settingName" ==
+                                       "startdatetime"]
   # first convert to POSIXlt
-  origen <- as.POSIXlt((as.numeric(rawStart)/1e7),
+  origen <- as.POSIXlt((as.numeric(raw_start) / 1e7),
                        origin="0001-01-01 00:00:00", tz ="GMT")
   # then change to write timezone
-  origen <- as.POSIXct(as.character(origen),tz=tz)
+  origen <- as.POSIXct(as.character(origen),tz = tz)
 
   # find length
-  longitud <- ad.set$settingValue[ad.set$settingName=="epochcount"]
+  longitud <- ad_set$"settingValue"[ad_set$"settingName" ==
+                                      "epochcount"]
   longitud <- as.numeric(longitud)
   # now fetch the measurements table
   base <- DBI::dbReadTable(con, "data")
@@ -40,11 +42,10 @@ read_agd <- function(file, tz = "GMT"){
                         length.out=longitud))
   base <- dplyr::select(base, date,
                         everything(),
-                        -dataTimestamp)
+                        - dataTimestamp) # nolint
 
-  ad.set <- dplyr::tbl_df(ad.set)
-  res <- list(settings=ad.set,
+  ad_set <- dplyr::tbl_df(ad_set)
+  res <- list(settings=ad_set,
               raw.data=base)
   return(res)
 }
-

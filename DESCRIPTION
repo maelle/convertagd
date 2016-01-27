@@ -4,7 +4,7 @@ Title: Read agd Files From Actigraph
 Version: 0.1
 Date: 2016-01-26
 Author: D. Donaire and M. Salmon
-Maintainer: <maelle.salmon@yahoo.se>
+Maintainer: M. Salmon <maelle.salmon@yahoo.se>
 Description: Allows to read Actigraph .agd files without having the dedicated
     software
 License: GPL (version 2 or later)

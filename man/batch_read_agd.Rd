@@ -4,32 +4,32 @@
 \alias{batch_read_agd}
 \title{Reading several agd files and converting the settings and raw data tables to csv.}
 \usage{
-batch_read_agd(pathToDirectory, tz, allInOne)
+batch_read_agd(path_to_directory, tz, all_in_one)
 }
 \arguments{
-\item{pathToDirectory}{path to the directory where all agd are saved.}
+\item{path_to_directory}{path to the directory where all agd are saved.}
 
 \item{tz}{Timezone. It must be the same for all files}
 
-\item{allInOne}{Boolean indicating whether the output should be a list of list of two tables
+\item{all_in_one}{Boolean indicating whether the output should be a list of list of two tables
 (settings and raw data)
- or a list of two tables (settings and raw data for all files with a column filename)}
+ or a list of two tables (settings and raw data for all files with a column file_name)}
 }
 \description{
 Reading several agd files and converting the settings and raw data tables to csv.
 }
 \details{
 The function saves results in the working directory as csv files with a "," as separator.
-If allInOne=TRUE, the output tables
+If all_in_one=TRUE, the output tables
  in this case will be called settings.csv and raw_data.csv. Else there will be a settings
- and a raw data file (originalfilename_settings.csv and originalfilename_raw.csv) for each
+ and a raw data file (originalfile_name_settings.csv and originalfile_name_raw.csv) for each
   file.
 }
 \examples{
 \dontrun{
-pathToDirectory <- system.file("extdata", package = "convertagd")
-batch_read_agd(pathToDirectory, tz="GMT",
-               allInOne=TRUE)
+path_to_directory <- system.file("extdata", package = "convertagd")
+batch_read_agd(path_to_directory, tz="GMT",
+               all_in_one=TRUE)
                }
 }
 
