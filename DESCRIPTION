@@ -13,3 +13,4 @@ URL: http://github.com/masalmon/convertagd
 BugReports: http://github.com/masalmon/convertagd/issues
 RoxygenNote: 5.0.1
 Suggests: testthat
+Depends: DBI, PhysicalActivity, RSQLite, dplyr, lubridate, readr
