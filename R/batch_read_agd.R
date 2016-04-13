@@ -1,7 +1,7 @@
 #' Reading several agd files and converting the settings and raw data tables to csv.
 #'
 #' @importFrom readr write_csv
-#' @importFrom dplyr mutate
+#' @importFrom dplyr mutate_
 #' @param path_to_directory path to the directory where all agd are saved.
 #' @param tz Timezone. It must be the same for all files
 #' @param all_in_one Boolean indicating whether the output should be a list of list of two tables
@@ -58,11 +58,26 @@ batch_read_agd <- function(path_to_directory, tz,
       stop("There are already a settings.csv and/or a raw_data.csv in your working directory !")# nolint
     }
 
+    # prepare file with raw data
+    readr::write_csv(data.frame("date",
+                       "axis1",
+                       "axis2",
+                       "axis4",
+                       "steps",
+                       "lux",
+                       "incline",
+                       "filename"),
+                     path = "raw_data.csv",
+                     append = TRUE)
+
     # loop over files
+
     for (file in list_files){
       converted <- read_agd(file, tz = tz)
       settings <- as.data.frame(t(converted[[1]]$"settingValue"))
       colnames(settings) <- settings_names
+      settings <- mutate_(settings, filename = ~ file)
+
       # first line of the settings file
       if (!file.exists("settings.csv")){
         readr::write_csv(settings,
@@ -80,8 +95,8 @@ batch_read_agd <- function(path_to_directory, tz,
       file_name <- gsub("/", "", file_name)
       file_name <- gsub(".agd", "", file_name)
       raw <- converted[[2]]
-      raw <- dplyr::mutate(raw,
-                   file_name = file_name)
+      raw <- dplyr::mutate_(raw,
+                   file_name = ~ file_name)
       readr::write_csv(raw, path = "raw_data.csv",
                        append = TRUE)
 
