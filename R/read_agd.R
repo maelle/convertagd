@@ -2,7 +2,8 @@
 #'
 #' @importFrom RSQLite SQLite
 #' @importFrom DBI dbConnect dbReadTable
-#' @importFrom dplyr tbl_df
+#' @importFrom dplyr tbl_df mutate_ select_
+#' @importFrom lazyeval interp
 #' @importFrom lubridate dmy
 #' @importFrom PhysicalActivity wearingMarking
 #' @param file Full path to the agd file to be converted
@@ -38,13 +39,14 @@ read_agd <- function(file, tz = "GMT"){
   # now fetch the measurements table
   base <- DBI::dbReadTable(con, "data")
   base <- dplyr::tbl_df(base)
-  base <- dplyr::mutate(base,
-                        date = origen +
+  base <- dplyr::mutate_(base,
+                        date = lazyeval::interp(~ origen +
                           seq(from = 0, by = 10,
-                        length.out = longitud))
-  base <- dplyr::select(base, date,
-                        everything(),
-                        - dataTimestamp) # nolint
+                        length.out = longitud)))
+  base <- dplyr::select_(base,
+                         .dots = list(quote(date),
+                         lazyeval::interp(~ everything()),
+                         quote(-dataTimestamp))) # nolint
 
   ad_set <- dplyr::tbl_df(ad_set)
   res <- list(settings = ad_set,

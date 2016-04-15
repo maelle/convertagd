@@ -15,7 +15,7 @@
 #'                all_in_one=TRUE)
 #'                }
 #' @details
-#' The function saves results in the working directory as csv files with a "," as separator.
+#' The function saves results in the input directory as csv files with a "," as separator.
 #' If all_in_one=TRUE, the output tables
 #'  in this case will be called settings.csv and raw_data.csv. Else there will be a settings
 #'  and a raw data file (originalfile_name_settings.csv and originalfile_name_raw.csv) for each
@@ -29,8 +29,8 @@ batch_read_agd <- function(path_to_directory, tz,
   # find files to transform
   list_files <- list.files(path_to_directory,
                           full.names = TRUE)
-  list_files <- list_files[grepl(".agd",
-                                 list_files) == TRUE]
+  list_files <- list_files[grepl("\\.agd",
+                                 list_files)]
 
 
   # names of the settings
@@ -53,9 +53,11 @@ batch_read_agd <- function(path_to_directory, tz,
 
   if (all_in_one == TRUE){
     # check files do not exist
-    if (file.exists("settings.csv") |
-       file.exists("raw_data.csv")){
-      stop("There are already a settings.csv and/or a raw_data.csv in your working directory !")# nolint
+    if (file.exists(paste0(path_to_directory,
+                           "/settings.csv")) |
+       file.exists(paste0(path_to_directory,
+                          "/raw_data.csv"))){
+      stop("There are already a settings.csv and/or a raw_data.csv in the directory !")# nolint
     }
 
     # prepare file with raw data
@@ -67,7 +69,8 @@ batch_read_agd <- function(path_to_directory, tz,
                        "lux",
                        "incline",
                        "filename"),
-                     path = "raw_data.csv",
+                     path = paste0(path_to_directory,
+                                   "/raw_data.csv"),
                      append = TRUE)
 
     # loop over files
@@ -79,14 +82,17 @@ batch_read_agd <- function(path_to_directory, tz,
       settings <- mutate_(settings, filename = ~ file)
 
       # first line of the settings file
-      if (!file.exists("settings.csv")){
+      if (!file.exists(paste0(path_to_directory,
+                              "/settings.csv"))){
         readr::write_csv(settings,
-                         path = "settings.csv",
+                         path = paste0(path_to_directory,
+                                       "/settings.csv"),
                          append = FALSE)
       }
       else{
         readr::write_csv(settings,
-                         path = "settings.csv",
+                         path = paste0(path_to_directory,
+                                       "/settings.csv"),
                          append = TRUE)
       }
 
@@ -97,7 +103,8 @@ batch_read_agd <- function(path_to_directory, tz,
       raw <- converted[[2]]
       raw <- dplyr::mutate_(raw,
                    file_name = ~ file_name)
-      readr::write_csv(raw, path = "raw_data.csv",
+      readr::write_csv(raw, path = paste0(path_to_directory,
+                                          "/raw_data.csv"),
                        append = TRUE)
 
     }
@@ -110,17 +117,17 @@ batch_read_agd <- function(path_to_directory, tz,
       file_name <- gsub(path_to_directory, "", file)
       file_name <- gsub("/", "", file_name)
       file_name <- gsub(".agd", "", file_name)
-
       # check files do not exist
-      setting_name <- paste0(file_name, "_settings.csv")
-      raw_name <- paste0(file_name, "_raw.csv")
+      setting_name <- paste0(path_to_directory, "/",
+                             file_name, "_settings.csv")
+      raw_name <- paste0(path_to_directory, "/",
+                         file_name, "_raw.csv")
       if (file.exists(setting_name) |
          file.exists(raw_name)){
         stop(paste0("There are already a",
                     setting_name,
                     " and/or a",
-                    raw_name,
-                    " in your working directory !"))
+                    raw_name))
       }
       # save the two files
       converted <- read_agd(file, tz = tz)

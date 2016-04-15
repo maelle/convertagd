@@ -19,7 +19,7 @@ batch_read_agd(path_to_directory, tz, all_in_one)
 Reading several agd files and converting the settings and raw data tables to csv.
 }
 \details{
-The function saves results in the working directory as csv files with a "," as separator.
+The function saves results in the input directory as csv files with a "," as separator.
 If all_in_one=TRUE, the output tables
  in this case will be called settings.csv and raw_data.csv. Else there will be a settings
  and a raw data file (originalfile_name_settings.csv and originalfile_name_raw.csv) for each

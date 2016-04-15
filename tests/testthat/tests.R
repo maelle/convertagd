@@ -28,14 +28,14 @@ test_that("batch_read_agd outputs files",{
   path_to_directory <- system.file("extdata", package = "convertagd")
   batch_read_agd(path_to_directory, tz="GMT",
                  all_in_one=TRUE)
-  expect_true(file.exists("settings.csv"))
-  expect_true(file.exists("raw_data.csv"))
+  expect_true(file.exists(paste0(path_to_directory, "/", "settings.csv")))
+  expect_true(file.exists(paste0(path_to_directory, "/", "raw_data.csv")))
   batch_read_agd(path_to_directory, tz="GMT",
                  all_in_one=FALSE)
-  expect_true(file.exists("dummyCHAI2_settings.csv"))
-  expect_true(file.exists("dummyCHAI2_raw.csv"))
-  expect_true(file.exists("dummyCHAI_settings.csv"))
-  expect_true(file.exists("dummyCHAI_raw.csv"))
+  expect_true(file.exists(paste0(path_to_directory, "/", "dummyCHAI2_settings.csv")))
+  expect_true(file.exists(paste0(path_to_directory, "/", "dummyCHAI2_raw.csv")))
+  expect_true(file.exists(paste0(path_to_directory, "/", "dummyCHAI_settings.csv")))
+  expect_true(file.exists(paste0(path_to_directory, "/", "dummyCHAI_raw.csv")))
 
 })
 
@@ -43,14 +43,14 @@ test_that("batch_read_agd outputs errors",{
   skip_on_cran()
   path_to_directory <- system.file("extdata", package = "convertagd")
   expect_error(batch_read_agd(path_to_directory, tz="GMT",
-                 all_in_one=TRUE),"There are already a settings.csv and/or a raw_data.csv in your working directory !")
+                 all_in_one=TRUE),"There are already")
   expect_error(batch_read_agd(path_to_directory, tz="GMT",
-                              all_in_one=FALSE),"There are already adummyCHAI_settings.csv and/or adummyCHAI_raw.csv in your working directory !")
+                              all_in_one=FALSE),"There are already")
 
-  file.remove("settings.csv")
-  file.remove("raw_data.csv")
-  file.remove("dummyCHAI2_settings.csv")
-  file.remove("dummyCHAI2_raw.csv")
-  file.remove("dummyCHAI_settings.csv")
-  file.remove("dummyCHAI_raw.csv")
+  file.remove(paste0(path_to_directory, "/", "settings.csv"))
+  file.remove(paste0(path_to_directory, "/", "raw_data.csv"))
+  file.remove(paste0(path_to_directory, "/", "dummyCHAI2_settings.csv"))
+  file.remove(paste0(path_to_directory, "/", "dummyCHAI2_raw.csv"))
+  file.remove(paste0(path_to_directory, "/", "dummyCHAI_settings.csv"))
+  file.remove(paste0(path_to_directory, "/", "dummyCHAI_raw.csv"))
 })
