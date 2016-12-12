@@ -57,7 +57,7 @@ kable(testRes[["settings"]])
 kable(head(testRes[["raw.data"]]))
 ```
 
-| date                |  axis1|  axis2|  axis3|  steps|  lux|  incline|
+| timedate            |  axis1|  axis2|  axis3|  steps|  lux|  incline|
 |:--------------------|------:|------:|------:|------:|----:|--------:|
 | 2015-05-13 07:00:00 |      7|      1|     64|      1|    0|        3|
 | 2015-05-13 07:00:10 |      5|      0|     44|      0|    0|        3|
@@ -73,13 +73,7 @@ Suppose you have a lot of agd files in one directory. You can convert all of the
 
 It takes the path to the directory as input and will save the results in the current working directory.
 
-You can either choose to get two csv files for each agd files (`all_in_one = FALSE`) :
-
--   originalfilename\_settings.csv
-
--   originalfilename\_raw.csv
-
-Or to get two csv files for all agd files (`all_in_one = TRUE`) :
+You will get two csv files for all agd files (`all_in_one = TRUE`) :
 
 -   settings.csv which is a table with 28 columns (the 28 settings names) and as many rows as there are agd files in the directory.
 
@@ -89,6 +83,5 @@ This is how a call to the function looks like:
 
 ``` r
 path_to_directory <- system.file("extdata", package = "convertagd")
-batch_read_agd(path_to_directory, tz="GMT",
-                all_in_one=TRUE)
+batch_read_agd(path_to_directory, tz="GMT")
 ```
