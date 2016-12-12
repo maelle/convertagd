@@ -1,16 +1,17 @@
 Package: convertagd
 Type: Package
 Title: Read agd Files From Actigraph
-Version: 0.1
-Date: 2016-01-26
-Author: D. Donaire and M. Salmon
-Maintainer: M. Salmon <maelle.salmon@yahoo.se>
-Description: Allows to read Actigraph .agd files without having the dedicated
-    software
-License: GPL (version 2 or later)
+Version: 0.1.1
+Authors@R: c(person("Maëlle", "Salmon", email = "maelle.salmon@yahoo.se", role =
+    c("aut", "cre")), person("David", "Donaire", email = "david.donaire@isglobal.org", role =
+    c("aut")))
+Description: Allows to read Actigraph agd files without having the dedicated
+    software.
+License: GPL (>= 2)
 LazyData: TRUE
 URL: http://github.com/masalmon/convertagd
 BugReports: http://github.com/masalmon/convertagd/issues
 RoxygenNote: 5.0.1
 Suggests: testthat
-Depends: DBI, PhysicalActivity, RSQLite, dplyr, lubridate, readr, lazyeval
+Imports: DBI, PhysicalActivity, RSQLite, dplyr, lubridate, readr, lazyeval
+Encoding: UTF-8
