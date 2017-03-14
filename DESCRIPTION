@@ -9,8 +9,8 @@ Description: Allows to read Actigraph agd files without having the dedicated
     software.
 License: GPL (>= 2)
 LazyData: TRUE
-URL: http://github.com/masalmon/convertagd
-BugReports: http://github.com/masalmon/convertagd/issues
+URL: http://github.com/maelle/convertagd
+BugReports: http://github.com/maelle/convertagd/issues
 RoxygenNote: 5.0.1
 Suggests: testthat
 Imports: DBI, PhysicalActivity, RSQLite, dplyr, lubridate, readr, lazyeval
