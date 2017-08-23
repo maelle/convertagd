@@ -1,5 +1,6 @@
-[![Build Status](https://travis-ci.org/masalmon/convertagd.svg?branch=master)](https://travis-ci.org/masalmon/convertagd) [![Build status](https://ci.appveyor.com/api/projects/status/8doh6j4dc9esj5as?svg=true)](https://ci.appveyor.com/project/masalmon/convertagd) [![codecov.io](https://codecov.io/github/masalmon/convertagd/coverage.svg?branch=master)](https://codecov.io/github/masalmon/convertagd?branch=master)
-
+[![Build Status](https://travis-ci.org/maelle/convertagd.svg?branch=master)](https://travis-ci.org/maelle/convertagd)
+[![Build status](https://ci.appveyor.com/api/projects/status/hmx054adptv65619?svg=true)](https://ci.appveyor.com/project/masalmon/convertagd-g4jkl)
+[![codecov.io](https://codecov.io/github/maelle/convertagd/coverage.svg?branch=master)](https://codecov.io/github/maelle/convertagd?branch=master)
 This is a package aimed at converting .agd files from Actigraph into data.frames.
 
 Installation
